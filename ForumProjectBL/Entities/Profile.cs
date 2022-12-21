@@ -13,5 +13,6 @@ namespace ForumProjectBL.Entities
         public string? Bio { get; set; }
         public Signature? Signature { get; set; }
         public User? User { get; set; }
+        public string? ImagePath { get; set; } /***/
     }
 }
