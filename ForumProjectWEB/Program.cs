@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ForumProjectBL.Entities;
 using ForumProjectDAL;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +13,18 @@ builder.Services.AddDbContext<ForumProjectDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ForumProjectDbContext>();
+    .AddEntityFrameworkStores<ForumProjectDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddRazorPages();
+/**** Images ****/
+builder.Services.AddSingleton<IFileProvider>(
+ new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ImageFiles"))
+);
+/**** Images ****/
 
 var app = builder.Build();
 
