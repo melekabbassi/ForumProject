@@ -1,8 +1,53 @@
-﻿@{
+﻿@using ForumProjectBL.Entities;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@model ForumProjectBL.Entities.Question
+@{
     ViewData["Title"] = "Home Page";
+}
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="search">Search</label>
+				<input type="text" class="form-control" id="search" name="search" placeholder="Search">
+			</div>
+		</div>
+	</div>
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @*<h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+    @if (SignInManager.IsSignedIn(User))
+    {
+		<br />
+        <a href="~/Questions/Create" class="btn btn-primary btn-lg">Add Question</a>
+
+        <h1>THIS IS WHERE QUESTIONS AND ADD BUTTON WILL BE DISPLAYED IF SIGNED IN</h1>
+       @* @foreach (var item in (IEnumerable<Question>)Model)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Content</p>
+                </div>
+            </div>
+        }*@
+    }
+    else
+    {
+        <h1>THIS IS WHERE QUESTIONS WILL BE DISPLAYED IF NOT SIGNED IN</h1>
+        @*@foreach (var item in (IEnumerable<Question>)Model)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Content</p>
+                </div>
+            </div>
+        }*@
+    }
 </div>
