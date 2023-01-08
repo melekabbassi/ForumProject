@@ -10,85 +10,85 @@ using ForumProjectDAL;
 
 namespace ForumProjectWEB.Controllers
 {
-    public class RepliesController : Controller
+    public class ThemesController : Controller
     {
         private readonly ForumProjectDbContext _context;
 
-        public RepliesController(ForumProjectDbContext context)
+        public ThemesController(ForumProjectDbContext context)
         {
             _context = context;
         }
 
-        // GET: Replies
+        // GET: Themes
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Replies.ToListAsync());
+              return View(await _context.Themes.ToListAsync());
         }
 
-        // GET: Replies/Details/5
+        // GET: Themes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Replies == null)
+            if (id == null || _context.Themes == null)
             {
                 return NotFound();
             }
 
-            var reply = await _context.Replies
-                .FirstOrDefaultAsync(m => m.MessageId == id);
-            if (reply == null)
+            var theme = await _context.Themes
+                .FirstOrDefaultAsync(m => m.ThemeId == id);
+            if (theme == null)
             {
                 return NotFound();
             }
 
-            return View(reply);
+            return View(theme);
         }
 
-        // GET: Replies/Create
+        // GET: Themes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Replies/Create
+        // POST: Themes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReplyId,QuestionId,MessageId,Title,Content,Date,IsRead")] Reply reply)
+        public async Task<IActionResult> Create([Bind("ThemeId,Title,Description")] Theme theme)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(reply);
+                _context.Add(theme);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(reply);
+            return View(theme);
         }
 
-        // GET: Replies/Edit/5
+        // GET: Themes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Replies == null)
+            if (id == null || _context.Themes == null)
             {
                 return NotFound();
             }
 
-            var reply = await _context.Replies.FindAsync(id);
-            if (reply == null)
+            var theme = await _context.Themes.FindAsync(id);
+            if (theme == null)
             {
                 return NotFound();
             }
-            return View(reply);
+            return View(theme);
         }
 
-        // POST: Replies/Edit/5
+        // POST: Themes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("ReplyId,QuestionId,MessageId,Title,Content,Date,IsRead")] Reply reply)
+        public async Task<IActionResult> Edit(int? id, [Bind("ThemeId,Title,Description")] Theme theme)
         {
-            if (id != reply.MessageId)
+            if (id != theme.ThemeId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace ForumProjectWEB.Controllers
             {
                 try
                 {
-                    _context.Update(reply);
+                    _context.Update(theme);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReplyExists(reply.MessageId))
+                    if (!ThemeExists(theme.ThemeId))
                     {
                         return NotFound();
                     }
@@ -113,68 +113,49 @@ namespace ForumProjectWEB.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(reply);
+            return View(theme);
         }
 
-        // GET: Replies/Delete/5
+        // GET: Themes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Replies == null)
+            if (id == null || _context.Themes == null)
             {
                 return NotFound();
             }
 
-            var reply = await _context.Replies
-                .FirstOrDefaultAsync(m => m.MessageId == id);
-            if (reply == null)
+            var theme = await _context.Themes
+                .FirstOrDefaultAsync(m => m.ThemeId == id);
+            if (theme == null)
             {
                 return NotFound();
             }
 
-            return View(reply);
+            return View(theme);
         }
 
-        // POST: Replies/Delete/5
+        // POST: Themes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            if (_context.Replies == null)
+            if (_context.Themes == null)
             {
-                return Problem("Entity set 'ForumProjectDbContext.Replies'  is null.");
+                return Problem("Entity set 'ForumProjectDbContext.Themes'  is null.");
             }
-            var reply = await _context.Replies.FindAsync(id);
-            if (reply != null)
+            var theme = await _context.Themes.FindAsync(id);
+            if (theme != null)
             {
-                _context.Replies.Remove(reply);
+                _context.Themes.Remove(theme);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ReplyExists(int? id)
+        private bool ThemeExists(int? id)
         {
-          return _context.Replies.Any(e => e.MessageId == id);
+          return _context.Themes.Any(e => e.ThemeId == id);
         }
-
-        /* Get Replies with QuestionId*/
-        public async Task<IActionResult> GetReplies(int? id)
-        {
-            if (id == null || _context.Replies == null)
-            {
-                return NotFound();
-            }
-
-            var replies = await _context.Replies
-                .Where(m => m.QuestionId == id)
-                .ToListAsync();
-            if (replies == null)
-            {
-                return NotFound();
-            }
-
-            return View(replies);
-        }
-	}
+    }
 }

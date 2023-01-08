@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace ForumProjectBL.Entities
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime? Date { get; set; }
 
+
+        [ForeignKey("Theme")]
         public int? ThemeId { get; set; }
         //public List<User>? Users { get; set; }
         //public List<Question>? Questions { get; set; }        

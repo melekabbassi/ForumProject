@@ -44,5 +44,6 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.MessageId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to List</a> |
+    <a asp-action="Index" asp-controller="Replies" asp-route-questionId="@Model?.QuestionId">Go to Replies</a>    
 </div>

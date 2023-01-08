@@ -10,85 +10,85 @@ using ForumProjectDAL;
 
 namespace ForumProjectWEB.Controllers
 {
-    public class RepliesController : Controller
+    public class DiscussionsController : Controller
     {
         private readonly ForumProjectDbContext _context;
 
-        public RepliesController(ForumProjectDbContext context)
+        public DiscussionsController(ForumProjectDbContext context)
         {
             _context = context;
         }
 
-        // GET: Replies
+        // GET: Discussions
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Replies.ToListAsync());
+              return View(await _context.Discussions.ToListAsync());
         }
 
-        // GET: Replies/Details/5
+        // GET: Discussions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Replies == null)
+            if (id == null || _context.Discussions == null)
             {
                 return NotFound();
             }
 
-            var reply = await _context.Replies
-                .FirstOrDefaultAsync(m => m.MessageId == id);
-            if (reply == null)
+            var discussion = await _context.Discussions
+                .FirstOrDefaultAsync(m => m.DiscussionId == id);
+            if (discussion == null)
             {
                 return NotFound();
             }
 
-            return View(reply);
+            return View(discussion);
         }
 
-        // GET: Replies/Create
+        // GET: Discussions/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Replies/Create
+        // POST: Discussions/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReplyId,QuestionId,MessageId,Title,Content,Date,IsRead")] Reply reply)
+        public async Task<IActionResult> Create([Bind("DiscussionId,Title,Description,Date,ThemeId")] Discussion discussion)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(reply);
+                _context.Add(discussion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(reply);
+            return View(discussion);
         }
 
-        // GET: Replies/Edit/5
+        // GET: Discussions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Replies == null)
+            if (id == null || _context.Discussions == null)
             {
                 return NotFound();
             }
 
-            var reply = await _context.Replies.FindAsync(id);
-            if (reply == null)
+            var discussion = await _context.Discussions.FindAsync(id);
+            if (discussion == null)
             {
                 return NotFound();
             }
-            return View(reply);
+            return View(discussion);
         }
 
-        // POST: Replies/Edit/5
+        // POST: Discussions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("ReplyId,QuestionId,MessageId,Title,Content,Date,IsRead")] Reply reply)
+        public async Task<IActionResult> Edit(int? id, [Bind("DiscussionId,Title,Description,Date,ThemeId")] Discussion discussion)
         {
-            if (id != reply.MessageId)
+            if (id != discussion.DiscussionId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace ForumProjectWEB.Controllers
             {
                 try
                 {
-                    _context.Update(reply);
+                    _context.Update(discussion);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReplyExists(reply.MessageId))
+                    if (!DiscussionExists(discussion.DiscussionId))
                     {
                         return NotFound();
                     }
@@ -113,68 +113,49 @@ namespace ForumProjectWEB.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(reply);
+            return View(discussion);
         }
 
-        // GET: Replies/Delete/5
+        // GET: Discussions/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Replies == null)
+            if (id == null || _context.Discussions == null)
             {
                 return NotFound();
             }
 
-            var reply = await _context.Replies
-                .FirstOrDefaultAsync(m => m.MessageId == id);
-            if (reply == null)
+            var discussion = await _context.Discussions
+                .FirstOrDefaultAsync(m => m.DiscussionId == id);
+            if (discussion == null)
             {
                 return NotFound();
             }
 
-            return View(reply);
+            return View(discussion);
         }
 
-        // POST: Replies/Delete/5
+        // POST: Discussions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            if (_context.Replies == null)
+            if (_context.Discussions == null)
             {
-                return Problem("Entity set 'ForumProjectDbContext.Replies'  is null.");
+                return Problem("Entity set 'ForumProjectDbContext.Discussions'  is null.");
             }
-            var reply = await _context.Replies.FindAsync(id);
-            if (reply != null)
+            var discussion = await _context.Discussions.FindAsync(id);
+            if (discussion != null)
             {
-                _context.Replies.Remove(reply);
+                _context.Discussions.Remove(discussion);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ReplyExists(int? id)
+        private bool DiscussionExists(int? id)
         {
-          return _context.Replies.Any(e => e.MessageId == id);
+          return _context.Discussions.Any(e => e.DiscussionId == id);
         }
-
-        /* Get Replies with QuestionId*/
-        public async Task<IActionResult> GetReplies(int? id)
-        {
-            if (id == null || _context.Replies == null)
-            {
-                return NotFound();
-            }
-
-            var replies = await _context.Replies
-                .Where(m => m.QuestionId == id)
-                .ToListAsync();
-            if (replies == null)
-            {
-                return NotFound();
-            }
-
-            return View(replies);
-        }
-	}
+    }
 }
