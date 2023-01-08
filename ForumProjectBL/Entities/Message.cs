@@ -24,7 +24,5 @@ namespace ForumProjectBL.Entities
 		
         //public User? Author { get; set; }
         public virtual User? Author { get; set; }
-		
-		public bool? IsRead { get; set; }
     }
 }
