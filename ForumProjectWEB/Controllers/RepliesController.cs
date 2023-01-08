@@ -19,14 +19,19 @@ namespace ForumProjectWEB.Controllers
             _context = context;
         }
 
-        // GET: Replies
-        public async Task<IActionResult> Index()
-        {
-              return View(await _context.Replies.ToListAsync());
-        }
+		// GET: Replies
+		//public async Task<IActionResult> Index()
+		//{
+		//      return View(await _context.Replies.ToListAsync());
+		//}
+		public IActionResult Index(int QuestionId)
+		{
+			var replies = _context.Questions.Where(r => r.QuestionId == QuestionId);
+			return View(replies);
+		}
 
-        // GET: Replies/Details/5
-        public async Task<IActionResult> Details(int? id)
+		// GET: Replies/Details/5
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Replies == null)
             {
@@ -54,7 +59,7 @@ namespace ForumProjectWEB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReplyId,QuestionId,MessageId,Title,Content,Date,IsRead")] Reply reply)
+        public async Task<IActionResult> Create([Bind("ReplyId,QuestionId,MessageId,Title,Content,Date")] Reply reply)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +91,7 @@ namespace ForumProjectWEB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("ReplyId,QuestionId,MessageId,Title,Content,Date,IsRead")] Reply reply)
+        public async Task<IActionResult> Edit(int? id, [Bind("ReplyId,QuestionId,MessageId,Title,Content,Date")] Reply reply)
         {
             if (id != reply.MessageId)
             {
@@ -157,24 +162,5 @@ namespace ForumProjectWEB.Controllers
         {
           return _context.Replies.Any(e => e.MessageId == id);
         }
-
-        /* Get Replies with QuestionId*/
-        public async Task<IActionResult> GetReplies(int? id)
-        {
-            if (id == null || _context.Replies == null)
-            {
-                return NotFound();
-            }
-
-            var replies = await _context.Replies
-                .Where(m => m.QuestionId == id)
-                .ToListAsync();
-            if (replies == null)
-            {
-                return NotFound();
-            }
-
-            return View(replies);
-        }
-	}
+    }
 }

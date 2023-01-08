@@ -34,16 +34,10 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Date)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsRead)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsRead)
-        </dd>
     </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.MessageId">Edit</a> |
     <a asp-action="Index">Back to List</a> |
-    <a asp-action="Index" asp-controller="Replies" asp-route-questionId="@Model?.QuestionId">Go to Replies</a>    
+	<a asp-action="Index" asp-asp-controller="Replies" asp-route-questionId="@Model?.QuestionId">Go to Replies</a>
 </div>
