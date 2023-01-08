@@ -20,9 +20,14 @@ namespace ForumProjectWEB.Controllers
         }
 
         // GET: Discussions
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //      return View(await _context.Discussions.ToListAsync());
+        //}
+        public IActionResult Index(int themeId)
         {
-              return View(await _context.Discussions.ToListAsync());
+            var discussions = _context.Discussions.Where(d => d.ThemeId == themeId);
+            return View(discussions);
         }
 
         // GET: Discussions/Details/5

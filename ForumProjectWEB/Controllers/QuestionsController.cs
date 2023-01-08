@@ -20,9 +20,14 @@ namespace ForumProjectWEB.Controllers
         }
 
         // GET: Questions
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //      return View(await _context.Questions.ToListAsync());
+        //}
+        public IActionResult Index(int DiscussionId)
         {
-              return View(await _context.Questions.ToListAsync());
+            var questions = _context.Questions.Where(q => q.DiscussionId == DiscussionId);
+            return View(questions);
         }
 
         // GET: Questions/Details/5
@@ -54,7 +59,7 @@ namespace ForumProjectWEB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("QuestionId,MessageId,Title,Content,Date,IsRead")] Question question)
+        public async Task<IActionResult> Create([Bind("QuestionId,MessageId,DiscussionId,Title,Content,Date,IsRead")] Question question)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +91,7 @@ namespace ForumProjectWEB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("QuestionId,MessageId,Title,Content,Date,IsRead")] Question question)
+        public async Task<IActionResult> Edit(int? id, [Bind("QuestionId,MessageId,DiscussionId,Title,Content,Date,IsRead")] Question question)
         {
             if (id != question.MessageId)
             {
