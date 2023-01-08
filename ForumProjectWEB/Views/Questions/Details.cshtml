@@ -44,29 +44,6 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.MessageId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-
-<div>
-	<h4>Answers</h4>
-	<hr />
-	<table class="table">
-		<thead>
-			<tr>
-				<th>
-					@Html.DisplayNameFor(model => model.Replies)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.Content)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.Date)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.IsRead)
-				</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
+    <a asp-action="Index">Back to List</a> |
+    <a asp-action="Index" asp-controller="Replies" asp-route-questionId="@Model?.QuestionId">Go to Replies</a>    
 </div>

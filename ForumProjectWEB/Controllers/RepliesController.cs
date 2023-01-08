@@ -157,5 +157,24 @@ namespace ForumProjectWEB.Controllers
         {
           return _context.Replies.Any(e => e.MessageId == id);
         }
-    }
+
+        /* Get Replies with QuestionId*/
+        public async Task<IActionResult> GetReplies(int? id)
+        {
+            if (id == null || _context.Replies == null)
+            {
+                return NotFound();
+            }
+
+            var replies = await _context.Replies
+                .Where(m => m.QuestionId == id)
+                .ToListAsync();
+            if (replies == null)
+            {
+                return NotFound();
+            }
+
+            return View(replies);
+        }
+	}
 }

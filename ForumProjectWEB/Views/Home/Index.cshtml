@@ -24,30 +24,10 @@
     @if (SignInManager.IsSignedIn(User))
     {
 		<br />
-        <a href="~/Questions/Create" class="btn btn-primary btn-lg">Add Question</a>
-
         <h1>THIS IS WHERE QUESTIONS AND ADD BUTTON WILL BE DISPLAYED IF SIGNED IN</h1>
-       @* @foreach (var item in (IEnumerable<Question>)Model)
-        {
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@item.Title</h5>
-                    <p class="card-text">@item.Content</p>
-                </div>
-            </div>
-        }*@
     }
     else
     {
         <h1>THIS IS WHERE QUESTIONS WILL BE DISPLAYED IF NOT SIGNED IN</h1>
-        @*@foreach (var item in (IEnumerable<Question>)Model)
-        {
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@item.Title</h5>
-                    <p class="card-text">@item.Content</p>
-                </div>
-            </div>
-        }*@
     }
 </div>
