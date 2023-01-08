@@ -21,7 +21,10 @@ namespace ForumProjectBL.Entities
 		[DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime? Date { get; set; }
-        public User? Author { get; set; }
-        public bool? IsRead { get; set; }
+		
+        //public User? Author { get; set; }
+        public virtual User? Author { get; set; }
+		
+		public bool? IsRead { get; set; }
     }
 }

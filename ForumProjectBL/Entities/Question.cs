@@ -11,6 +11,7 @@ namespace ForumProjectBL.Entities
     public class Question : Message
     {
 		public int? QuestionId { get; set; }
-        public List<Reply>? Replies { get; set; }
-    }
+        //public List<Reply>? Replies { get; set; }
+		public virtual IEnumerable<Reply>? Replies { get; set; }
+	}
 }
