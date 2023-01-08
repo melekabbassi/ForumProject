@@ -17,5 +17,7 @@ namespace ForumProjectBL.Entities
 
 		[MaxLength(100)]
 		public string? Description { get; set; }
-    }
+
+		public virtual IEnumerable<Discussion>? Discussions { get; set; }
+	}
 }
