@@ -19,6 +19,7 @@ namespace ForumProjectBL.Entities
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime? SignUpDate { get; set; }
 		
-		public Role? Role { get; set; }
+		//public Role? Role { get; set; }
+		public virtual Role? Role { get; set; }
     }
 }

@@ -9,12 +9,23 @@ namespace ForumProjectBL.Entities
 {
     public class Discussion
     {
+        [Key]
         public int? DiscussionId { get; set; }
+
+        [MaxLength(50), MinLength(10)]
         public string? Title { get; set; }
+
+        [MaxLength(500), MinLength(50)]
         public string? Description { get; set; }
-        public DateTime? Date { get; set; }
+
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? Date { get; set; }
+
         public int? ThemeId { get; set; }
-        public List<User>? Users { get; set; }
-        public List<Question>? Questions { get; set; }        
+        //public List<User>? Users { get; set; }
+        //public List<Question>? Questions { get; set; }        
+        public virtual IEnumerable<User>? Users { get; set; }
+        public virtual IEnumerable<Question>? Questions { get; set; }
     }
 }

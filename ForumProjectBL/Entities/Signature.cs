@@ -11,7 +11,9 @@ namespace ForumProjectBL.Entities
     {
         [Key]
 		public int? SignatureId { get; set; }
-        public string? Content { get; set; }
+
+		[MaxLength(100), MinLength(10)]
+		public string? Content { get; set; }
         public byte[]? Image { get; set; }
     }
 }
