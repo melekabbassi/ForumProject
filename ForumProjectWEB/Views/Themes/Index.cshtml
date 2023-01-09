@@ -33,7 +33,8 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ThemeId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ThemeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ThemeId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.ThemeId">Delete</a> |
+                <a asp-action="Index" asp-controller="Discussions" asp-route-themeId="@item.ThemeId">Go to Discussions</a>
             </td>
         </tr>
 }

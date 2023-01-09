@@ -6,7 +6,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+@*@using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
 	<div class="row">
 		<div class="col-md-12">
@@ -16,18 +16,22 @@
 			</div>
 		</div>
 	</div>
-}
+}*@
 
-<div class="text-center">
+<div class="box text-center" style="text-align: center">
     @*<h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
     @if (SignInManager.IsSignedIn(User))
     {
 		<br />
-        <h1>THIS IS WHERE QUESTIONS AND ADD BUTTON WILL BE DISPLAYED IF SIGNED IN</h1>
+        <h1>
+            This is a demo of a forum realised with ASP.NET, 
+            this project is made by Melek Abbassi and Mootaz Soltani in 
+            the frame of an academic project.
+        </h1>
     }
     else
     {
-        <h1>THIS IS WHERE QUESTIONS WILL BE DISPLAYED IF NOT SIGNED IN</h1>
+        <h1>Sign in to read more about this project!</h1>
     }
 </div>
